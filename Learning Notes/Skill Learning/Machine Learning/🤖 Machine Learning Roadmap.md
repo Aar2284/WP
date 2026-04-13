@@ -20,7 +20,7 @@
 | [[Phase 5 - Specializations\|Phase 5]]            | Specialization Tracks             | 🔴 Advanced      | 4–6 months | ⬜      |
 | [[Phase 6 - LLMs and GenAI\|Phase 6]]             | LLMs & Generative AI              | 🟣 Advanced      | 4–6 months | ⬜      |
 | [[Phase 7 - Frontier AI and MLOps\|Phase 7]]      | Frontier AI & MLOps               | ⚫ Expert         | Ongoing    | ⬜      |
-![[Pasted image 20260505162436.png]]
+![[ML_Mastery_Roadmap.png]]
 **Estimated total:** 18–30 months of focused, consistent study.
 
 ---

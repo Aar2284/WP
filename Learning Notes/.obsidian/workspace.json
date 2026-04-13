@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Phase 2 (Roadmap).md",
+                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/The Machine Learning Workflow.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Phase 2 (Roadmap)"
+              "title": "The Machine Learning Workflow"
             }
           }
         ],
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Phase 2 (Roadmap).md",
+                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/The Machine Learning Workflow.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Phase 2 (Roadmap)"
+              "title": "Backlinks for The Machine Learning Workflow"
             }
           },
           {
@@ -128,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Phase 2 (Roadmap).md",
+                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/The Machine Learning Workflow.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Phase 2 (Roadmap)"
+              "title": "Outgoing links from The Machine Learning Workflow"
             }
           },
           {
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Phase 2 (Roadmap).md",
+                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/The Machine Learning Workflow.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Phase 2 (Roadmap)"
+              "title": "Outline of The Machine Learning Workflow"
             }
           }
         ]
@@ -199,18 +199,18 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "47673392510a5ddd",
+  "active": "5658064ac3f07a17",
   "lastOpenFiles": [
-    "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Untitled",
+    "Skill Learning/Machine Learning/ML_Mastery_Roadmap.png",
     "Skill Learning/Machine Learning/🤖 Machine Learning Roadmap.md",
-    "Skill Learning/Machine Learning/Phase 1 (Mathematical & Python Foundations)/Phase 1 (Roadmap).md",
+    "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/The Machine Learning Workflow.md",
     "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Phase 2 (Roadmap).md",
-    "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/The Machine Learning Workflow.md",
-    "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/ML_Workflow.jpg",
+    "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts",
+    "Skill Learning/Machine Learning/Phase 1 (Mathematical & Python Foundations)/Phase 1 (Roadmap).md",
+    "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/ML_Workflow.jpg",
     "Phase 1 - Foundations.md",
     "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)",
     "Skill Learning/Big Data",
-    "Skill Learning/Machine Learning/Pasted image 20260505162436.png",
     "Roadmap.md",
     "Welcome.md",
     "ML Roadmap - Master Index.md",
