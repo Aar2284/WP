@@ -6,7 +6,8 @@
 The ML workflow is not a linear script you run once. It’s a **feedback loop**:
 
 
-```graph LR
+```mermaid
+graph TD
     Data[("📁 1. Data Stage")] --> Features("🧪 2. Feature Engineering")
     Features --> Model("🤖 3. Model Training")
     Model --> Eval("📊 4. Evaluation")
@@ -43,13 +44,13 @@ The **Data** stage answers: *What raw material do I have? What’s missing? What
 
 Suppose you want to predict `sale_price` (target) from features like `sqft`, `bedrooms`, `year_built`, `zipcode`.
 
-- **Collection**: Pull from county records + MLS listings. You realise some zipcodes have 10× more rows than others.  
+- <mark style="background: #ADCCFFA6;">Collection</mark>: Pull from county records + MLS listings. You realize some zip-codes have 10× more rows than others.  
 
-- **EDA**: Plot `sale_price` vs. `sqft` – obvious positive correlation. But `sale_price` shows a long tail (expensive mansions). Log‑transform? Later.
+- **<mark style="background: #ADCCFFA6;">EDA</mark>: Plot `sale_price` vs. `sqft` – obvious positive correlation. But `sale_price` shows a long tail (expensive mansions). Log‑transform? Later.
 
-- **Cleaning**: 5% of rows have missing `bedrooms` (older listings). Instead of dropping, you impute with median per `zipcode`. Two rows have `sqft = 0` – obvious errors → remove.  
+- **<mark style="background: #ADCCFFA6;">Cleaning</mark>: 5% of rows have missing `bedrooms` (older listings). Instead of dropping, you impute with median per `zipcode`. Two rows have `sqft = 0` – obvious errors → remove.  
 
-- **Splitting**: **Temporal split** – train on houses sold before 2019, validate on 2019, test on 2020. Why? Because you’re predicting future sales. Random split would leak future patterns into training – a cardinal sin.  
+- **<mark style="background: #ADCCFFA6;">Splitting</mark>: **Temporal split** – train on houses sold before 2019, validate on 2019, test on 2020. Why? Because you’re predicting future sales. Random split would leak future patterns into training – a cardinal sin.  
 
 ## 🧪 Detailed Path (a checklist you can follow for any project)
 
