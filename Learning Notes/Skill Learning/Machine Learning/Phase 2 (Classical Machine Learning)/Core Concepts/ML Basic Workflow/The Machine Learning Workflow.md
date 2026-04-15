@@ -32,14 +32,16 @@ The **Data** stage answers: *What raw material do I have? What’s missing? What
 
 ## 🧩 Sub‑stages of “Data” (the detailed path)
 
-| Step                     | What you do                                                                 | Common pitfalls                              |
-| ------------------------ | --------------------------------------------------------------------------- | -------------------------------------------- |
-| 1. Collection & assembly | Gather raw data from logs, APIs, sensors, databases, human annotation.      | Using the wrong time window; data missing at random vs. not at random. |
-| 2. Exploration (EDA)     | Profile distributions, correlations, missingness, outliers, duplicates.     | Skipping visual checks; trusting summary stats blindly. |
-| 3. Cleaning              | Handle missing values (impute, flag, delete), correct typos, remove duplicates, fix inconsistent units. | Deleting too much; introducing future information. |
-| 4. Splitting             | Partition into **train / validation / test** sets (e.g., 70/15/15) while respecting temporal or group structure. | Random split when data is time‑series; data leakage from validation into training. |
-| 5. Documentation         | Record data provenance, splits, cleaning decisions, and known biases.       | No documentation → unreproducible “science”. |
+[[Sub‑stages of “Data”#^af929f|Detailed Explanation ->]] 
 
+| Step                     | What you do                                                                                                      | Common pitfalls                                                                    |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| 1. Collection & assembly | Gather raw data from logs, APIs, sensors, databases, human annotation.                                           | Using the wrong time window; data missing at random vs. not at random.             |
+| 2. Exploration (EDA)     | Profile distributions, correlations, missingness, outliers, duplicates.                                          | Skipping visual checks; trusting summary stats blindly.                            |
+| 3. Cleaning              | Handle missing values (impute, flag, delete), correct typos, remove duplicates, fix inconsistent units.          | Deleting too much; introducing future information.                                 |
+| 4. Splitting             | Partition into **train / validation / test** sets (e.g., 70/15/15) while respecting temporal or group structure. | Random split when data is time‑series; data leakage from validation into training. |
+| 5. Documentation         | Record data provenance, splits, cleaning decisions, and known biases.                                            | No documentation → unreproducible “science”.                                       |
+^8f81f7
 ## 📘 Example: House Price Prediction (the classic)
 
 Suppose you want to predict `sale_price` (target) from features like `sqft`, `bedrooms`, `year_built`, `zipcode`.
