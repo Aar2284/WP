@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/ML Basic Workflow/The Machine Learning Workflow.md",
+                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/ML Basic Workflow/Sub‑stages of “Data” 🧩.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for The Machine Learning Workflow"
+              "title": "Backlinks for Sub‑stages of “Data” 🧩"
             }
           },
           {
@@ -184,7 +184,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 200,
     "collapsed": true
   },
   "left-ribbon": {

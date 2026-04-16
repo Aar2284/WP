@@ -129,3 +129,144 @@ Treating all missing data as MAR and blindly using mean/median imputation. This 
   - [ ] Distinguish between MCAR / MAR / MNAR
   - [ ] Decide handling strategy (imputation, flagging, or re‑collection)
 - [ ] Log all decisions as a Data Collection Note (link here)
+
+---
+---
+## 2. Exploratory Data Analysis (EDA)
+
+EDA is the **visual and quantitative detective work** you perform on raw data before formal modeling. It reveals the structure, anomalies, patterns, and assumptions you need to make – or break. The goal is **not** to produce polished results, but to understand what you actually have.
+## Overview
+
+> **Key balance**: What you actively do (profiling, plotting, testing) vs. the dangerous shortcut of trusting summary statistics without looking at the data.
+
+---
+
+## What You Do – Core EDA Actions
+
+### 1. Profile Distributions
+- **For numeric variables**: Compute mean, median, mode, variance, skewness, kurtosis.  
+- **For categorical**: Frequency tables, mode, number of unique levels.  
+- **For time series**: Plot value over time, detect trends/seasonality.
+
+### 2. Assess Correlations
+- **Pairwise correlations** (Pearson for linear, Spearman for monotonic).  
+- **Correlation matrix** heatmap to spot multicollinearity.  
+- For categorical vs. numeric: ANOVA or point‑biserial correlation.
+
+### 3. Quantify Missingness
+- **Per‑column missing percentage**.  
+- **Missing pattern matrix** – which columns tend to be missing together?  
+- Use `missingno` (Python) or `visdat` (R) to visualise gaps.
+
+### 4. Detect Outliers
+- **Univariate methods**: IQR (interquartile range), Z‑score, modified Z‑score.  
+- **Multivariate methods**: Mahalanobis distance, isolation forests.  
+- Always **contextualise**: an outlier might be a rare event or an error.
+
+### 5. Identify Duplicates
+- **Exact duplicates** (all columns equal).  
+- **Near‑duplicates** (fuzzy matching on text, timestamps within seconds).  
+- **Domain‑specific duplicates** (e.g., same customer ID with different names).
+
+### 6. Visualise Everything (Don’t skip!)
+- **Histograms / KDE plots** – shape (normal, bimodal, long‑tailed).  
+- **Boxplots** – outliers and spread per category.  
+- **Scatter plots** – relationships, clusters, heteroscedasticity.  
+- **Pair plots** (e.g., `seaborn.pairplot`) for a quick multivariate scan.  
+- **QQ plots** – check normality assumption if needed.
+
+---
+## Common Pitfall – Skipping Visual Checks & Trusting Summary Stats Blindly
+
+### Why this is dangerous
+
+Summary statistics (mean, std, correlation coefficient) **hide** critical patterns. They are **reductive** – a single number cannot represent the full distribution.
+
+### Classic examples (Anscombe’s quartet & beyond)
+
+| Dataset | Mean X | Mean Y | Variance X | Correlation | *But the scatter plots look completely different* |
+|---------|--------|--------|------------|-------------|-----------------------------------------------------|
+
+- Linear relationship with no outliers
+- Curvilinear relationship (correlation near zero)
+- One extreme outlier driving the correlation
+- Vertical line (X constant except one point)
+
+If you **only** look at correlation = 0.82, you miss that the data is a parabola, or a single outlier, or two separate clusters.
+
+### Additional traps
+
+1. **Mode / median hiding multimodality** – Two peaks produce the same mean as one peak.  
+2. **Boxplots without raw data** – Two very different distributions (e.g., uniform vs. bimodal) can have identical boxplot statistics.  
+3. **Missingness ignored** – Summary stats often computed after dropping missing values → you never see *why* they are missing.  
+4. **Outliers masked** – A few extreme points can shift the mean, but the median stays “normal”. Trusting median without plotting hides the existence of those extremes.
+
+### Real‑world consequence
+
+You build a regression model, validate on summary stats, and deploy.  
+In production, the model fails because the unseen bimodal pattern (e.g., day vs. night behavior) was never accounted for – you only saw the average.
+
+### How to avoid – mandatory visual checks
+
+For **every** numeric column, produce at least:
+- Histogram or KDE
+- Boxplot
+- If time series: line plot
+
+For **every** pair of important columns:
+- Scatter plot (or hexbin for large N)
+
+Use automated **visual EDA frameworks**:
+- `pandas-profiling` / `ydata-profiling` – generates a full HTML report with distributions, correlations, missingness, and alert for problematic patterns.
+- `sweetviz` – compares two datasets (e.g., train vs. test).
+- `D-Tale` – interactive GUI.
+
+> **Rule of thumb**: If you don't look at each variable’s distribution with your own eyes, you haven't done EDA.
+
+---
+
+## Graphical Workflow – EDA Process (Mermaid)
+
+```mermaid
+flowchart TD
+    A[Raw Data] --> B[Initial Profile<br/>shape, dtypes, missing%]
+    B --> C{Visual inspection}
+    C --> D[Univariate<br/>Histogram, Boxplot, QQ]
+    C --> E[Bivariate<br/>Scatter, Heatmap]
+    C --> F[Multivariate<br/>Pairplot, PCA projection]
+    D & E & F --> G[Identify anomalies:<br/>outliers, wrong time window, duplicates]
+    G --> H{Decision}
+    H -->|Fix| I[Clean / filter / flag]
+    H -->|Document| J[Note in data report]
+    I --> K[Refined understanding<br/>Update assumptions]
+    J --> K
+    K --> L[Proceed to modeling or further collection]
+```
+___
+## Obsidian Checklist for EDA
+
+- [ ] **Load data** into a notebook (Jupyter, RMarkdown, etc.)
+- [ ] **Initial summary** – `df.info()`, `df.describe(include='all')`
+- [ ] **Missingness report**:
+  - [ ] Table of missing % per column
+  - [ ] Visual matrix (missingno)
+- [ ] **Distribution checks** (every numeric column):
+  - [ ] Histogram + KDE
+  - [ ] Boxplot (with outliers highlighted)
+  - [ ] QQ plot (if normality relevant)
+- [ ] **Correlation check**:
+  - [ ] Heatmap of Pearson / Spearman
+  - [ ] Scatter matrix for highly correlated pairs (>0.7 or <-0.7)
+- [ ] **Outlier investigation**:
+  - [ ] IQR method – list potential outliers
+  - [ ] Domain check: are they real or errors?
+- [ ] **Duplicate detection**:
+  - [ ] Exact duplicates – count and review
+  - [ ] Near‑duplicates – fuzzy matching (if text or time)
+- [ ] **Visual sanity**:
+  - [ ] Generate an **automated profile report** (pandas-profiling)
+  - [ ] Review **all plots** – no blind trust in numbers
+- [ ] **Write EDA summary note** (link here) including:
+  - [ ] Surprising patterns found
+  - [ ] Actions taken (filter, impute, flag)
+  - [ ] Remaining open questions
