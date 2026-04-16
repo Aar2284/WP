@@ -272,6 +272,8 @@ ___
   - [ ] Actions taken (filter, impute, flag)
   - [ ] Remaining open questions
 
+[[The Machine Learning Workflow#🧩 Sub‑stages of “Data” (the detailed path)|<- Back to Table]] 
+
 ___
 ___
 ## 3. Data Cleaning
@@ -416,3 +418,9 @@ flowchart LR
   - [ ] Confirm no future timestamps used in imputation
   - [ ] Run a “dry run” with temporal CV – does cleaning repeat correctly?
 - [ ] **Document every change** – link to cleaning log
+
+[[The Machine Learning Workflow#🧩 Sub‑stages of “Data” (the detailed path)|<- Back to Table]] 
+
+---
+---
+
