@@ -1,5 +1,4 @@
 [[The Machine Learning Workflow#^8f81f7|<- Back to Workflow]] 
-
 ## 1. Collection & Assembly
 
 >**Collection**: Data is the foundation of any ML model. Systematic data collection ensures your model learns a diverse and representative set of real-world patterns.
@@ -270,3 +269,148 @@ ___
   - [ ] Surprising patterns found
   - [ ] Actions taken (filter, impute, flag)
   - [ ] Remaining open questions
+
+___
+___
+## 3. Data Cleaning
+
+Cleaning transforms raw, messy data into a reliable, analysis‑ready state. You’ll handle missing values, fix typos, remove duplicates, and standardise units. The goal is **not** to make data perfect, but to make it **trustworthy** for downstream tasks.
+## Overview
+
+> **Key balance**: What you actively do vs. two lethal pitfalls – deleting too much (losing signal) and introducing future information (leaking time).
+
+---
+
+## What You Do – Core Cleaning Actions
+
+### 1. Handle Missing Values
+
+| Approach | When to use | How to do |
+|----------|-------------|-----------|
+| **Delete** | Missingness is MCAR and <5% of rows/column | `df.dropna()` |
+| **Impute** | MAR, small % missing | Mean/median for numeric, mode for categorical; regression or KNN for complex |
+| **Flag**   | MNAR or missingness itself is informative | Create `col_missing` indicator (0/1) |
+
+### 2. Correct Typos & Inconsistencies
+- **String standardisation**: lowercasing, trimming spaces, fixing abbreviations (e.g., "NY" vs "New York").
+- **Domain validation**: Check values against allowed list (e.g., gender: M/F/X).
+- **Fuzzy matching** for near‑identical labels (e.g., "Apple inc." vs "Apple Inc.").
+
+### 3. Remove Duplicates
+- **Exact duplicates**: Keep first or last occurrence, or aggregate.
+- **Near‑duplicates**: Define a similarity threshold (e.g., Levenshtein ratio >0.9) and merge or flag.
+
+### 4. Fix Inconsistent Units
+- Convert all measurements to a **single unit system** (e.g., all lengths to meters, all currencies to USD with timestamped exchange rates).
+- Use explicit conversion tables – never guess.
+
+### 5. Validate Data Types
+- Parse dates with timezone info.
+- Convert integers stored as strings.
+- Ensure categoricals are `category` dtype for efficiency.
+
+---
+
+## Common Pitfalls
+
+### 🔴 Pitfall 1: Deleting Too Much
+
+**What does it mean?**  
+Aggressively removing rows or columns with missing values, duplicates, or outliers, thereby losing valuable signal or introducing bias.
+
+**Examples:**
+- Dropping all rows with any missing value (listwise deletion) when missingness is **not MCAR** – you end up with a non‑representative sample.
+- Deleting duplicate rows without checking if they are valid repeated measurements (e.g., sensor records same temperature twice – both are real).
+- Removing outliers that are actually rare but real events (e.g., fraud transactions, high‑value purchases).
+
+**Consequences:**
+- Reduced statistical power.
+- Biased estimates (e.g., if high‑income people are more likely to skip the income field, deleting those rows removes high earners from analysis).
+- Training a model on a “too clean” dataset that fails in production because real‑world data has those variations.
+
+**How to avoid:**
+- **Always document** deletion count and reason.
+- **Compare distributions** before and after deletion – if they change significantly, reconsider.
+- Use **indicator flags** instead of deletion (keep the row, but mark `missing_income = 1`).
+- For duplicates: decide whether they represent true duplicates (error) or repeated events – keep if the latter.
+
+> **Rule**: When in doubt, **impute or flag** – do not delete. Deletion should be your last resort.
+
+---
+
+### 🔴 Pitfall 2: Introducing Future Information (Data Leakage)
+
+**What does it mean?**  
+Using information that would **not be available** at prediction time to clean or transform the data. This creates overly optimistic results and fails in production.
+
+**Examples in cleaning:**
+
+| Action | Leakage type |
+|--------|---------------|
+| Imputing missing values using the **global mean** of the entire dataset, then splitting train/test | Test set mean influences training |
+| Removing outliers based on percentiles computed from **all data** (including future) | Same leakage |
+| Using **future values** to fill missing time series (e.g., forward‑filling from tomorrow) | Future information |
+| Deduplicating using a timestamp column – if you drop the later duplicate, you used the fact that a future event existed | Temporal leakage |
+
+**Consequences:**
+- Model appears to have 99% accuracy in validation, but achieves 50% in production.
+- Time‑series forecasts become impossible because the cleaned training set contains “knowledge” of the future.
+
+**How to avoid – always respect time:**
+
+1. **Split before cleaning** – If you have a temporal task (forecasting, time‑series CV), split data into train / validation / test **chronologically** first, then clean each fold separately using **only information from the past**.
+2. **Use rolling statistics** – For imputation or outlier detection, use expanding window or rolling window (e.g., impute missing value at day `t` using mean of days `1…t-1`).
+3. **Check your pipeline** – Ensure no `fit` on full data before `split`. Use `Pipeline` with `TimeSeriesSplit` in `sklearn`.
+4. **Flag future leaks** – If you ever compute a statistic (mean, median, threshold) from the entire dataset, you’ve leaked.
+
+> **Golden rule**: Any transformation that depends on the whole dataset is dangerous. Make it **per‑fold** or **expanding window**.
+
+---
+
+## Mermaid Diagram – Cleaning Workflow with Pitfall Guards
+
+```mermaid
+flowchart LR
+    A[Raw Data] --> B{Missing?}
+    B -->|MCAR <5%| C[Delete rows/cols]
+    B -->|MAR| D[Impute\nusing PAST data only]
+    B -->|MNAR| E[Add missing flag\nkeep original]
+    
+    A --> F[Typos / Units]
+    F --> G[Standardise\nwithin fold]
+    
+    A --> H[Duplicates]
+    H --> I{Time series?}
+    I -->|Yes| J[Keep all, mark as duplicate\nor deduplicate chronologically]
+    I -->|No| K[Deduplicate\nbut keep first/last]
+    
+    C & D & E & G & J & K --> L{Check for leaks}
+    L -->|Any global statistic| M[ ❌ Recompute per fold]
+    L -->|Clean before split| N[ ❌ Split first then clean]
+    L -->|Clean using future| O[ ❌ Use expanding window]
+    L -->|Clean correct| P[✅ Trusted clean data]
+```
+---
+## Obsidian Checklist for Cleaning
+
+- [ ] **Before cleaning**: Split data if temporal (train/val/test chronologically)
+- [ ] **Missing values**:
+  - [ ] Classify mechanism (MCAR / MAR / MNAR)
+  - [ ] If MCAR and <5% → drop
+  - [ ] If MAR → impute using **past only** (expanding mean, KNN from train)
+  - [ ] If MNAR → create indicator column, keep missing as special value
+- [ ] **Typos & units**:
+  - [ ] Standardise strings (lower, strip, mapping table)
+  - [ ] Convert units to one system (document conversion factors)
+- [ ] **Duplicates**:
+  - [ ] Check if duplicates are errors or real repeats
+  - [ ] If real, keep all (maybe add duplicate flag)
+  - [ ] If errors, deduplicate but respect time order
+- [ ] **Outliers** (often done in cleaning):
+  - [ ] Detect with IQR / domain rules
+  - [ ] **Do not delete** – cap, flag, or treat as separate category
+- [ ] **Leakage audit**:
+  - [ ] Confirm no `mean`, `median`, `percentile` computed on entire dataset
+  - [ ] Confirm no future timestamps used in imputation
+  - [ ] Run a “dry run” with temporal CV – does cleaning repeat correctly?
+- [ ] **Document every change** – link to cleaning log
