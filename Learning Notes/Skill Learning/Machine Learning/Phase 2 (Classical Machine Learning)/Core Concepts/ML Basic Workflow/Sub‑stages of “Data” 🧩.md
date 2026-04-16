@@ -424,3 +424,142 @@ flowchart LR
 ---
 ---
 
+## 4. Data Splitting (Train / Validation / Test)
+
+The core principle: **the test set must never influence any decision** – not directly, not indirectly through validation.
+## Overview
+
+Splitting partitions your cleaned data into three independent sets:
+- **Train** (≈70%) – model learning.
+- **Validation** (≈15%) – hyperparameter tuning, model selection.
+- **Test** (≈15%) – final, one‑time evaluation of generalization.
+
+> **Key balance**: What you actively do vs. two deadly sins – random splitting when data has time or group structure, and leakage from validation into training.
+
+---
+
+## What You Do – Splitting Strategies
+
+### 1. Random Splitting (Default)
+- Shuffle data, then assign to train/val/test.
+- Works when **rows are independent and identically distributed (i.i.d.)** – no time order, no groups.
+
+### 2. Temporal Splitting (For Time Series)
+- **Chronological order must be preserved** – never shuffle.
+- Typical split: train = older dates, val = middle dates, test = most recent dates.
+- Example: Train: Jan–Jun, Val: Jul–Aug, Test: Sep.
+
+### 3. Group‑Based Splitting
+- Keep all rows belonging to the same entity (customer, patient, sensor) in **one split only**.
+- Otherwise, same entity appears in both train and test → leakage.
+- Use `GroupKFold` or `LeaveOneGroupOut`.
+
+### 4. Stratified Splitting
+- Preserve class proportions (for classification) across splits.
+- Use `stratify` parameter in `train_test_split`.
+
+### 5. Nested Splitting for Model Selection
+- Outer loop: train/test.
+- Inner loop: train/val (often with cross‑validation).
+
+---
+
+## Common Pitfalls
+
+### 🔴 Pitfall 1: Random Split When Data Is Time‑Series
+
+**What does it mean?**  
+Shuffling time‑dependent data before splitting. Future events end up in training, past events in test – completely reversing causality.
+
+**Example:**
+- Stock prices: training on tomorrow’s price to predict today.
+- Weather: training on summer data, testing on winter data but shuffled so summer appears in test and winter in train – model learns wrong seasonal patterns.
+
+**Consequences:**
+- Artificially high performance (model sees the future during training).
+- Production failure: real‑world forecasting uses only the past, but your training had the future.
+
+**How to avoid:**
+- **Never shuffle** if time order matters.
+- Use `TimeSeriesSplit` from sklearn or manually split by date.
+- Add a **time cutoff** – all train dates < all val dates < all test dates.
+
+---
+
+### 🟠 Pitfall 2: Data Leakage from Validation into Training
+
+**What does it mean?**  
+Using validation set statistics (mean, thresholds, feature selection) to adjust training, without proper nesting. Or using early stopping on validation but then retraining on train+val before final test.
+
+**Examples:**
+- Normalising features using mean/std computed from **train+val**, then splitting – validation influences training.
+- Selecting best model based on validation accuracy, then retraining that model on **train+val** and reporting test score – test is now contaminated by validation decisions.
+- Doing feature selection on full data, then splitting – validation features influence training.
+
+**Consequences:**
+- Optimistic bias – test score no longer independent.
+- Your model is tuned to validation, but final test sees a different distribution (because you retrained on bigger set).
+
+**How to avoid:**
+- **Lock the test set** – never look at it until the very end.
+- Any preprocessing (imputation, scaling, feature selection) must be **fit only on training** and **transformed** to val/test.
+- For hyperparameter tuning, use **nested cross‑validation**:
+  - Outer loop: train/test split.
+  - Inner loop: further split training into train/val to tune parameters.
+- After tuning, retrain on **entire outer training set** (not train+val) with best parameters, then evaluate on outer test.
+
+> **Golden rule**: Test set must be a **completely untouched oracle** – no peeking, no influence.
+
+---
+
+## Mermaid Sequence Diagram – Correct Temporal Splitting vs. Leaky Random Split
+
+```mermaid
+gantt
+    title Correct Temporal Split (No Shuffle)
+    dateFormat  YYYY-MM-DD
+    axisFormat  %b
+    
+    section Data Timeline
+    Training (Jan–Jun) :t1, 2024-01-01, 182d
+    Validation (Jul–Aug) :t2, after t1, 62d
+    Test (Sep) :t3, after t2, 30d
+```
+
+```mermaid
+gantt
+    title ❌ Wrong Random Split (Shuffled Time Series)
+    dateFormat  YYYY-MM-DD
+    axisFormat  %b
+    
+    section Mixed – Leakage
+    Training (contains future) :crit, 2024-01-01, 120d
+    Validation (contains past & future) :active, 2024-03-01, 90d
+    Test (random slice) :done, 2024-06-01, 60d
+```
+---
+## Obsidian Checklist for Splitting
+
+- [ ] **Identify data structure**:
+  - [ ] Is there a time order? → Temporal split, **no shuffle**.
+  - [ ] Are there groups (users, devices)? → Group split.
+  - [ ] Otherwise → Random split with optional stratification.
+- [ ] **Split proportions**: typical 70/15/15 or 80/10/10 (large data).
+- [ ] **Temporal split**:
+  - [ ] Choose cutoff dates (e.g., 60% train, 20% val, 20% test chronologically).
+  - [ ] Verify all train dates < val dates < test dates.
+- [ ] **Group split**:
+  - [ ] Ensure no group appears in more than one split.
+  - [ ] Use `GroupShuffleSplit` or manual.
+- [ ] **Preprocessing isolation**:
+  - [ ] Fit scalers / imputers **only on training**.
+  - [ ] Transform validation and test using training parameters.
+- [ ] **Nesting for hyperparameter tuning**:
+  - [ ] Outer split: train / test (test untouched).
+  - [ ] Inner split: train_sub / val (for tuning).
+- [ ] **Final step**:
+  - [ ] Train final model on **entire outer training** (not including test).
+  - [ ] Evaluate **once** on test – then never touch test again.
+- [ ] **Document splits** – record random seeds or date cutoffs.
+
+[[The Machine Learning Workflow#🧩 Sub‑stages of “Data” (the detailed path)|<- Back to Table]]
