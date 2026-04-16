@@ -32,7 +32,7 @@ The **Data** stage answers: *What raw material do I have? What’s missing? What
 
 ## 🧩 Sub‑stages of “Data” (the detailed path)
 
-[[Sub‑stages of “Data”#^af929f|Detailed Explanation ->]] 
+[[Sub‑stages of “Data” 🧩#^af929f|Detailed Explanation ->]] 
 
 | Step                     | What you do                                                                                                      | Common pitfalls                                                                    |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
