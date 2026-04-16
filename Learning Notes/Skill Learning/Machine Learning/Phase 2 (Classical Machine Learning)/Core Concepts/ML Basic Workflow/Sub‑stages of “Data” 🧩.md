@@ -1,4 +1,4 @@
-[[The Machine Learning Workflow#^8f81f7|<- Back to Workflow]] 
+ [[The Machine Learning Workflow|<- Back to Workflow]] 
 ## 1. Collection & Assembly
 
 >**Collection**: Data is the foundation of any ML model. Systematic data collection ensures your model learns a diverse and representative set of real-world patterns.
@@ -128,6 +128,8 @@ Treating all missing data as MAR and blindly using mean/median imputation. This 
   - [ ] Distinguish between MCAR / MAR / MNAR
   - [ ] Decide handling strategy (imputation, flagging, or re‑collection)
 - [ ] Log all decisions as a Data Collection Note (link here)
+
+[[The Machine Learning Workflow#🧩 Sub‑stages of “Data” (the detailed path)|<- Back to Table]] 
 
 ---
 ---

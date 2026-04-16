@@ -1,5 +1,4 @@
-
- [[Phase 2 (Roadmap)#^b5873f|The ML pipeline: data → features → model → evaluation → iterate]] | 
+ [[Phase 2 (Roadmap)#^b5873f|<- Back to Phase 2 (Roadmap)]] | 
  
 ## The Big Picture: Why a Workflow?
 
@@ -34,13 +33,13 @@ The **Data** stage answers: *What raw material do I have? What’s missing? What
 
 [[Sub‑stages of “Data” 🧩#^af929f|Detailed Explanation ->]] 
 
-| Step                     | What you do                                                                                                      | Common pitfalls                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| 1. Collection & assembly | Gather raw data from logs, APIs, sensors, databases, human annotation.                                           | Using the wrong time window; data missing at random vs. not at random.             |
-| 2. Exploration (EDA)     | Profile distributions, correlations, missingness, outliers, duplicates.                                          | Skipping visual checks; trusting summary stats blindly.                            |
-| 3. Cleaning              | Handle missing values (impute, flag, delete), correct typos, remove duplicates, fix inconsistent units.          | Deleting too much; introducing future information.                                 |
-| 4. Splitting             | Partition into **train / validation / test** sets (e.g., 70/15/15) while respecting temporal or group structure. | Random split when data is time‑series; data leakage from validation into training. |
-| 5. Documentation         | Record data provenance, splits, cleaning decisions, and known biases.                                            | No documentation → unreproducible “science”.                                       |
+| Step                                                                           | What you do                                                                                                      | Common pitfalls                                                                    |
+| ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [[Sub‑stages of “Data” 🧩#1. Collection & Assembly\|1. Collection & Assembly]] | Gather raw data from logs, APIs, sensors, databases, human annotation.                                           | Using the wrong time window; data missing at random vs. not at random.             |
+| 2. Exploration (EDA)                                                           | Profile distributions, correlations, missingness, outliers, duplicates.                                          | Skipping visual checks; trusting summary stats blindly.                            |
+| 3. Cleaning                                                                    | Handle missing values (impute, flag, delete), correct typos, remove duplicates, fix inconsistent units.          | Deleting too much; introducing future information.                                 |
+| 4. Splitting                                                                   | Partition into **train / validation / test** sets (e.g., 70/15/15) while respecting temporal or group structure. | Random split when data is time‑series; data leakage from validation into training. |
+| 5. Documentation                                                               | Record data provenance, splits, cleaning decisions, and known biases.                                            | No documentation → unreproducible “science”.                                       |
 ^8f81f7
 ## 📘 Example: House Price Prediction (the classic)
 
