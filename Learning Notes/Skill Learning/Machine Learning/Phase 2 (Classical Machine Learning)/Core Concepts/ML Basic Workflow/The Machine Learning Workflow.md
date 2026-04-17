@@ -57,12 +57,12 @@ Suppose you want to predict `sale_price` (target) from features like `sqft`, `be
 
 >[!todo] Checklist: Deployment Readiness
 
-- [ ] **Inventory Sources:** CSVs, SQL, APIs, or Images?
-- [ ] **Define Unit:** Is one row = one house? Or one user session?    
-- [ ] **Leakage Check:** Is there a column available now that won't exist at prediction time?    
-- [ ] **Missingness:** If >40% is missing, consider dropping unless `NA` has meaning.    
-- [ ] **Split FIRST:** Do this before any scaling to prevent "data whispering."    
-- [ ] **Data Card:** Document every decision in a Markdown table.
+- [x] **Inventory Sources:** CSVs, SQL, APIs, or Images?
+- [x] **Define Unit:** Is one row = one house? Or one user session?    
+- [x] **Leakage Check:** Is there a column available now that won't exist at prediction time?    
+- [x] **Missingness:** If >40% is missing, consider dropping unless `NA` has meaning.    
+- [x] **Split FIRST:** Do this before any scaling to prevent "data whispering."    
+- [x] **Data Card:** Document every decision in a Markdown table.
 
 ## 🔁 Interactive Obsidian Workflow for the “Data” Stage
 

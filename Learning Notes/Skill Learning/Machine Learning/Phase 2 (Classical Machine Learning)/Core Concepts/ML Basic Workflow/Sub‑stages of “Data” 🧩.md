@@ -563,3 +563,154 @@ gantt
 - [ ] **Document splits** – record random seeds or date cutoffs.
 
 [[The Machine Learning Workflow#🧩 Sub‑stages of “Data” (the detailed path)|<- Back to Table]]
+
+---
+---
+## 5. Documentation
+
+Documentation is the **glue** that makes data work reproducible, auditable, and shareable. You record everything: where data came from (provenance), how you split it, every cleaning decision, and known biases. Without documentation, you don’t have data science – you have **unreproducible tinkering**.
+## Overview
+
+> **Key balance**: What you actively document vs. the single lethal pitfall – no documentation at all, which turns your analysis into a black box that even you cannot recreate in three months.
+
+---
+
+## What You Do – Core Documentation Actions
+
+### 1. Record Data Provenance
+- **Source**: Which database, API endpoint, log file, sensor ID, or human annotator.
+- **Extraction method**: SQL query, script version, API call parameters.
+- **Time window** of collection (with timezone).
+- **Version** of source schema (if applicable).
+
+### 2. Document Splits
+- **Method**: Random, temporal, or group‑based.
+- **Seed** (for reproducibility).
+- **Cutoff dates** (for temporal splits).
+- **Proportions** (e.g., 70/15/15) and how they were applied.
+
+### 3. Log Every Cleaning Decision
+For each change:
+- **What** was modified (missing imputation, outlier capping, duplicate removal).
+- **Why** (e.g., “missing values in column X were MNAR, so flagged instead of deleted”).
+- **How** (function name, parameters, version of code).
+- **Impact** (how many rows changed, before/after distribution shift).
+
+### 4. List Known Biases & Limitations
+- **Sampling bias** (e.g., collected only from business hours).
+- **Measurement bias** (sensor drift, human annotator disagreement).
+- **Missingness mechanism** (MCAR, MAR, MNAR).
+- **Leakage risks** that could not be fully eliminated.
+
+### 5. Maintain a Data Dictionary
+- Column name, data type, description.
+- Allowed values / range.
+- Source of the column.
+- Any transformations applied.
+
+### 6. Version Control Everything
+- Code (scripts, notebooks) in Git.
+- Raw data checksums (MD5/SHA).
+- Documentation as Markdown files in the same repo.
+
+---
+
+## Common Pitfall – No Documentation → Unreproducible “Science”
+
+### What does it mean?
+
+You perform analysis, clean data, split, model, get great results. But you never wrote down:
+- Which rows you deleted and why.
+- The random seed used for splitting.
+- How you handled missing values.
+- The exact version of the raw data.
+
+Three months later, you (or someone else) try to replicate. The raw data has been updated, the script has changed, the cleaning steps are lost. Results are different. Was it a bug? A different sample? Nobody knows.
+
+### Real‑world consequences
+
+- **Peer review**: Journal rejects because code and data are not reproducible.
+- **Production failure**: The model that worked on your laptop breaks in deployment because the preprocessing pipeline wasn’t documented – engineers re‑implemented it incorrectly.
+- **Regulatory non‑compliance**: In finance/healthcare, you must prove how data was processed. No documentation = no audit trail = fines.
+- **Wasted time**: You spend days re‑figuring out what you did.
+
+### How to avoid – build documentation into your workflow
+
+1. **Use a pipeline framework** (DVC, Kedro, Prefect) that forces documentation of data versions and transformations.
+2. **Keep a data journal** – a Markdown file updated in real time, not after the fact.
+3. **Write self‑documenting code** – functions with clear docstrings, notebooks with markdown cells explaining each step.
+4. **Automate metadata capture** – tools like `pandera`, `great-expectations`, or `dataherald` can log validation rules and data profiles.
+5. **Store a `README.md`** in every data folder with:
+   - Provenance table
+   - Splitting recipe
+   - Cleaning decision log
+   - Known biases
+
+> **Golden rule**: If it’s not documented, it didn’t happen.
+
+---
+
+## Mermaid Mindmap – Documentation Structure (Different Style)
+
+This is a **mindmap** – radial, hierarchical, completely different from flowcharts, sequence diagrams, or Gantt charts.
+```mermaid
+mindmap
+  root((Documentation))
+    Provenance
+      Source
+      Extraction method
+      Time window
+      Version
+    Splits
+      Method
+      Seed
+      Cutoff dates
+      Proportions
+    Cleaning Log
+      What
+      Why
+      How
+      Impact
+    Known Biases
+      Sampling bias
+      Measurement bias
+      Missingness
+      Leakage
+    Data Dictionary
+      Column names
+      Types
+      Descriptions
+    Version Control
+      Git commit hash
+      Raw data checksum
+```
+---
+## Obsidian Checklist for Documentation
+
+- [ ] **Provenance recorded**:
+  - [ ] Source name and location
+  - [ ] Extraction script or query (link to file)
+  - [ ] Collection time window (with timezone)
+  - [ ] Raw data checksum (MD5)
+- [ ] **Splitting documented**:
+  - [ ] Method (random/temporal/group)
+  - [ ] Random seed (if any)
+  - [ ] Chronological cutoffs (if temporal)
+  - [ ] Class proportions before/after (if stratified)
+- [ ] **Cleaning log** – for each transformation:
+  - [ ] Date of change
+  - [ ] Affected columns
+  - [ ] Operation (impute, delete, recode)
+  - [ ] Parameter values (e.g., “median imputation using training set only”)
+  - [ ] Row count before/after
+- [ ] **Known biases**:
+  - [ ] List biases with estimated direction (overestimate? underestimate?)
+  - [ ] Suggest mitigation (e.g., “do not use for night‑time predictions”)
+- [ ] **Data dictionary**:
+  - [ ] Each column: name, type, description, source, transformations
+- [ ] **Version control**:
+  - [ ] All scripts committed to Git (commit hash recorded)
+  - [ ] Raw data archived or checksummed
+- [ ] **README.md** exists in project root, linking to all above
+
+[[The Machine Learning Workflow#🧩 Sub‑stages of “Data” (the detailed path)|<- Back to Table]]
