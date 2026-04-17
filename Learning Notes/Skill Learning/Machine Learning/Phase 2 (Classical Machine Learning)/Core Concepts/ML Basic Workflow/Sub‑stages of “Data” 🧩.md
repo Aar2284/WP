@@ -711,6 +711,6 @@ mindmap
 - [ ] **Version control**:
   - [ ] All scripts committed to Git (commit hash recorded)
   - [ ] Raw data archived or checksummed
-- [ ] **README.md** exists in project root, linking to all above
+- [ ] **README.md** exists in project root, linking to all above  
 
 [[The Machine Learning Workflow#🧩 Sub‑stages of “Data” (the detailed path)|<- Back to Table]]
