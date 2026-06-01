@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Skill Learning/Big Data/Sample question run 1.md",
+                "file": "Skill Learning/Big Data/4.1 Partitions and Buckets.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Sample question run 1"
+              "title": "4.1 Partitions and Buckets"
             }
           }
         ],
@@ -201,9 +201,9 @@
   },
   "active": "5658064ac3f07a17",
   "lastOpenFiles": [
+    "Skill Learning/Big Data/Sample question run 1.md",
     "Skill Learning/Big Data/4.1 Partitions and Buckets.md",
     "Skill Learning/Big Data/3.1 Partitions and Buckets.md",
-    "Skill Learning/Big Data/Sample question run 1.md",
     "Skill Learning/Big Data/4. Apache Hive.md",
     "Skill Learning/Big Data/3. Apache Hive.md",
     "Skill Learning/Big Data/3. MapReduce and YARN.md",
