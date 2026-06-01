@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/ML Basic Workflow/Sub‑stages of “Data” 🧩.md",
+                "file": "Skill Learning/Big Data/1. Introduction to Hadoop and HDFS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Sub‑stages of “Data” 🧩"
+              "title": "1. Introduction to Hadoop and HDFS"
             }
           }
         ],
@@ -201,8 +201,11 @@
   },
   "active": "5658064ac3f07a17",
   "lastOpenFiles": [
-    "Skill Learning/Machine Learning/🤖 Machine Learning Roadmap.md",
     "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/ML Basic Workflow/Sub‑stages of “Data” 🧩.md",
+    "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/ML Basic Workflow/ML_Workflow.jpg",
+    "Skill Learning/Big Data/1. Introduction to Hadoop and HDFS.md",
+    "Skill Learning/Big Data/fd.md",
+    "Skill Learning/Machine Learning/🤖 Machine Learning Roadmap.md",
     "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/ML Basic Workflow/The Machine Learning Workflow.md",
     "Sources_HouseData.md",
     "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Phase 2 (Roadmap).md",
@@ -214,7 +217,6 @@
     "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/ML Basic Workflow",
     "Skill Learning/Machine Learning/ML_Mastery_Roadmap.png",
     "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts",
-    "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)/Core Concepts/ML Basic Workflow/ML_Workflow.jpg",
     "Phase 1 - Foundations.md",
     "Skill Learning/Machine Learning/Phase 2 (Classical Machine Learning)",
     "Skill Learning/Big Data",
