@@ -1,4 +1,6 @@
-# Big Data Lab Setup on Ubuntu 22.04 (WSL)
+
+---
+## Big Data Lab Setup on Ubuntu 22.04 (WSL)
 
 ## Version Compatibility Matrix
 
