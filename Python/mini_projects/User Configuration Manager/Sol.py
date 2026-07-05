@@ -41,3 +41,24 @@ def view_settings(settings: dict[str, str]) -> str:
         output_string += f"{key.capitalize()}: {value}\n"
         
     return output_string
+
+test_settings = {
+    "theme": "light",
+    "language": "english"
+}
+
+print("--- Initial Settings ---")
+print(view_settings(test_settings))
+
+print("--- Adding ---")
+print(add_setting(test_settings, ("notifications", "on")))
+print(add_setting(test_settings, ("theme", "dark"))) 
+
+print("\n--- Updating ---")
+print(update_setting(test_settings, ("theme", "dark")))
+
+print("\n--- Deleting ---")
+print(delete_setting(test_settings, "language"))
+
+print("\n--- Final Settings ---")
+print(view_settings(test_settings))
