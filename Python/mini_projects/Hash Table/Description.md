@@ -39,25 +39,25 @@ For the purpose of this lab, the hashing function will be simple: it will sum th
 
 ### Tests:
 
-Waiting:1. You should define a HashTable class.
-Waiting:2. When a new instance of the HashTable class is created, its collection attribute should be initialized to an empty dictionary.
-Waiting:3. The HashTable class should have a hash method.
-Waiting:4. The hash method should take a string as a parameter.
-Waiting:5. The hash method should take a string as its argument and return the sum of the Unicode values of each character in the string.
-Waiting:6. The HashTable class should have an add method.
-Waiting:7. The add method should take a key and value as parameters.
-Waiting:8. The HashTable class should have a remove method.
-Waiting:9. The remove method should take a key as a parameter.
-Waiting:10. When you try to remove a key that does not exist in the collection, it should not raise an error or remove anything.
-Waiting:11. If multiple keys hash to the same index, the remove method should only delete the specific key-value pair and not the entire dictionary at that index.
-Waiting:12. The HashTable class should have a lookup method.
-Waiting:13. The lookup method should take a key as the parameter.
-Waiting:14. HashTable().hash('golf') should return 424.
-Waiting:15. HashTable().add('golf', 'sport') should add the key-value pair to the collection at key 424.
-Waiting:16. HashTable().add('dear', 'friend') and HashTable().add('read', 'book') should add both the key-value pairs to the collection at index 412 as a nested dictionary.
-Waiting:17. When a key exists in the hash table, the remove() method should remove the given key and its corresponding value from the collection.
-Waiting:18. When the 'golf', 'sport' key-value pair exists in the hash table, HashTable().lookup('golf') should return sport.
-Waiting:19. When the 'golf', 'sport' key-value pair does not exist in the collection, HashTable().lookup('golf') should return None.
-Waiting:20. When the 'fcc' key exists in the collection, HashTable().lookup('cfc') should return None.
-Waiting:21. When you add ('rose', 'flower') to the hash table, its collection attribute should look like this: { 441: { 'rose': 'flower' }}.
-Waiting:22. When you add a key that hashes to the same value as an existing key, like fcc and cfc, the collection should look like this: { 300: { 'fcc': 'coding', 'cfc':  'chemical' }}.
+- 1. You should define a HashTable class.
+- 2. When a new instance of the HashTable class is created, its collection attribute should be initialized to an empty dictionary.
+- 3. The HashTable class should have a hash method.
+- 4. The hash method should take a string as a parameter.
+- 5. The hash method should take a string as its argument and return the sum of the Unicode values of each character in the string.
+- 6. The HashTable class should have an add method.
+- 7. The add method should take a key and value as parameters.
+- 8. The HashTable class should have a remove method.
+- 9. The remove method should take a key as a parameter.
+- 10. When you try to remove a key that does not exist in the collection, it should not raise an error or remove anything.
+- 11. If multiple keys hash to the same index, the remove method should only delete the specific key-value pair and not the entire dictionary at that index.
+- 12. The HashTable class should have a lookup method.
+- 13. The lookup method should take a key as the parameter.
+- 14. HashTable().hash('golf') should return 424.
+- 15. HashTable().add('golf', 'sport') should add the key-value pair to the collection at key 424.
+- 16. HashTable().add('dear', 'friend') and HashTable().add('read', 'book') should add both the key-value pairs to the collection at index 412 as a nested dictionary.
+- 17. When a key exists in the hash table, the remove() method should remove the given key and its corresponding value from the collection.
+- 18. When the 'golf', 'sport' key-value pair exists in the hash table, HashTable().lookup('golf') should return sport.
+- 19. When the 'golf', 'sport' key-value pair does not exist in the collection, HashTable().lookup('golf') should return None.
+- 20. When the 'fcc' key exists in the collection, HashTable().lookup('cfc') should return None.
+- 21. When you add ('rose', 'flower') to the hash table, its collection attribute should look like this: { 441: { 'rose': 'flower' }}.
+- 22. When you add a key that hashes to the same value as an existing key, like fcc and cfc, the collection should look like this: { 300: { 'fcc': 'coding', 'cfc':  'chemical' }}.
